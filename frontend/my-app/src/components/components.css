@@ -1,0 +1,363 @@
+*{
+    text-decoration: none;
+}
+@keyframes logformtransform
+{
+    from{opacity: 0%;};
+    to{opacity: 100%;}
+}
+body{
+    /* background-color: rgb(51, 73, 82); */
+    margin-top: 6%;
+    padding-left: 2% ;
+    background-image: none;
+    /* overflow: hidden; */
+
+
+}
+.title{
+    color: green;
+}
+.topnav li{
+    display: inline;
+    /* color: black; */
+    /* font-size: 100px; */
+}
+.topnav h1
+{
+    display: inline;
+}
+.log{
+    float: right;
+    padding-right: 10px;
+    line-height: 40px;
+    font-size: 20px;
+    color: #000;
+}
+.navitems{
+    padding-left: 30px;
+    padding-right: 20px;
+    font-size: 20px;
+    /* background-color: #000; */
+
+}
+.midnav{
+    display: inline;
+    padding-left: 35%;
+    /* padding-right: 10%; */
+}
+.topnav {
+    position: fixed; /* Fixed position to stick at the top */
+    top: 0; /* Position at the top of the viewport */
+    left: 0; /* Align to the left edge of the viewport */
+    width: 100%; /* Take up full width of the viewport */
+    background-color: antiquewhite;
+    /* background-color:#0056b3; */
+    border: none; /* Remove border */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    z-index: 1000; /* Set a high z-index to ensure it's above other elements */
+    box-shadow: -1px -5px 20px 0px rgba(0, 0, 0, 0.5);}
+.content  {
+    /* margin-top: 6%; */
+    /* padding-left: 2% ; */
+    /* background-color: #0056b3; */
+}
+
+
+/* components.css */
+.task-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-content {
+    flex: 1; /* Take up remaining space */
+}
+
+.task-actions {
+    display: flex;
+    align-items: center;
+}
+
+.completed-button,
+.delete-button {
+    /* background-color: #ff6347; */
+    color: rgb(247, 80, 80);
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.completed-button i,
+.delete-button i {
+    margin-right: 8px;
+}
+.completed-button{
+    color: green;
+}
+
+
+
+/* components.css */
+.form-container {
+    display: inline;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    /* flex-basis: calc(50% - 10px); /*Adjust width to leave space between elements */
+    margin-bottom: 10px;
+    width: 400px;
+    padding-bottom: 4px;
+    /* background-color: #ffffff; */
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 20px;
+    font-weight:bold;
+}
+
+.input-group input[type='text'] {
+    width: 100%;
+    margin-left: 5px;
+    height: 40px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-group input[type='text']:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+/* Style placeholder text */
+.input-group input[type='text']::placeholder {
+    color: #999999;
+}
+/* .taskbtn
+{
+    display: flex;
+} */
+.form-container button {
+    margin-left: 5%;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+/*           login                 */
+
+.loginform{
+    align-items: center;
+    justify-content: center;
+    background-color:antiquewhite;
+    border-radius: 4px;
+    /* margin:8% 70% 0% 4%; */
+    /* margin-top: 8%; */
+    padding: 50px;
+    width: 20%;
+    box-shadow: 0px 1px 9px 0px rgba(0, 0, 0, 0.5);
+    /* max-inl-size: 300px; */
+    /* max-inline-size: 300px; */
+}
+.loginform .login input{
+    height: 40px;
+    width: 98%;
+    border-radius: 4px;
+    border: 0px;
+    padding: 2px;
+    padding-left: 5px;
+    margin-top: 8px;
+}
+.loginform button{
+    border: 0px;
+    color: #000;
+    background:white;
+    margin-left: 40%;
+    border-radius: 4px;
+    padding: 7px;
+}
+.loginform .login button
+{
+    margin-top: 20px;
+}
+.checkbox
+{
+    padding-top: 27px;
+}
+.loginform .signin input
+{
+    height: 40px;
+    width: 98%;
+    border-radius: 4px;
+    border: 0px;
+    padding: 2px;
+    padding-left: 5px;
+}
+
+.loginform .check{
+    height: 15px;
+    width: 20px;
+}
+.logdiv
+{
+    /* animation-name: container;
+    animation-duration: 1.5s; */
+    margin-top: 8%;
+    margin: 8% 5% auto 5%;
+    /* background-color: #ad2f2f; */
+    justify-content: baseline;
+    /* display:inline-block; */
+    display: flex;
+}
+.loginform{
+    /* animation-name: logformtransform;
+    animation-duration: 1.5s; */
+    /* margin-top: 8%;
+    margin: 8% 5% auto 5%; */
+}
+@keyframes logtitletransform
+{
+    from{font-size: 0px};
+    to{font-size: 0px;}
+}
+.logtitle{
+    animation-name: logtitletransform;
+    animation-duration: 1s;
+    line-height: 50%;
+    float: left;
+    padding: 70px 0px 50px 300px;
+    /* padding: 0px; */
+    font-size: 20px;
+    /* padding: 50px; */
+    /* background-color: #0056b3; */
+}
+.workgif img
+{
+    height: 200px;
+}
+.workgif{
+    /* padding-top: 50px; */
+    /* margin: 0%;
+    border: 0%;
+    bottom: 0%; */
+    /* background-color: #999999; */
+}
+
+
+/*                    home div             */
+
+
+.content{
+    /* display: flex; */
+}
+/* .form-container{
+    position: fixed;
+} */
+.taskdata::-webkit-scrollbar {
+    display: none;
+  }
+
+.taskdata
+{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    margin-top: 20px;
+}
+.taskform
+{
+    background-color: blueviolet;
+    display:inline;
+}
+.taskdiv
+{
+    padding: 5px;
+    width: 70%;
+    /* background-color:aquamarine; */
+    float: left;
+}
+.prodiv
+{
+    /* position: -webkit-fixed; */
+    position:fixed;
+    float: right;
+    margin-top: 3%;
+    margin-left: 71%;
+    padding: 5px;
+    width: 350px;
+    height: 450px;
+    border-radius: 5px;
+    background-color:antiquewhite;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+}
+/* @keyframes zoom
+{
+    form{opacity: 0%;};
+    to{opacity: 100%;}
+} */
+@keyframes zoom
+{
+    from{font-size: 30px};
+    to{font-size: 20px;}
+    /* from{padding-left: 0px};
+    to{padding-left: 10px;} */
+}
+.pro-content 
+{
+    padding: 5px 0px 5px 15px;
+}
+.pro-content h2
+{
+    animation-name: zoom;
+    animation-duration: 0.5s;
+    /* display:flexbox; */
+    padding: 5px 0px 5px 15px;
+    /* border: 2px solid red; */
+}
+.pro-content b{
+    font-size: 20px;
+    font-weight: lighter;
+}
+.prodiv img{
+    box-shadow: 0px 0px 20px 7px rgba(70, 172, 52, 0.5);
+    border-radius: 50%;
+    height: 150px;
+    margin-left: 25%;
+    margin-top: 5%;
+}
+.pro-content .progress,.pro-content h2 {
+    margin-left: 50px;
+    
+}
+progress{
+    width: 80%;
+    height: 30px;
+}
+
