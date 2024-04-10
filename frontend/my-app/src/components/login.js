@@ -12,7 +12,7 @@ export default function Login({ setIsLoggedIn }) {
   useEffect(()=>{
     if(window.localStorage.getItem('mytoken'))
     {
-      navigation("/home")
+      navigation("/home");
     }
   },[])
 
@@ -30,7 +30,8 @@ export default function Login({ setIsLoggedIn }) {
         const data=response.data;
         if(data.is_success){
           window.localStorage.setItem('mytoken',data.data.token)
-          navigation("/home")
+          // navigation("/home")
+          window.location.reload();
         }
         else{
           alert(data.error)
@@ -51,13 +52,17 @@ export default function Login({ setIsLoggedIn }) {
         email:e.target.email.value,
         password:e.target.password.value
       })
-      console.log(response.data);
-      alert(response.data);
-      // if(response.data=="")
-      // {
-      //   alert("Account already exists ")
-      //   setLog(true)
-      // }
+      // console.log(response.data);
+      // alert(response.data);
+      if(response.data=="Successfully registered")
+      {
+        alert("Successfully registered login to access your account. ")
+        setLog(true)
+      }
+      else{
+        alert(response.data)
+        setLog(true)
+      }
     } catch (error) {
       console.log("error in signin submit catch");
     }

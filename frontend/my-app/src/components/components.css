@@ -1,5 +1,6 @@
 *{
     text-decoration: none;
+    font-family: sans-serif;
 }
 @keyframes logformtransform
 {
@@ -26,6 +27,9 @@ body{
 .topnav h1
 {
     display: inline;
+}
+.topnav b{
+    color: #000;
 }
 .log{
     float: right;
@@ -85,6 +89,12 @@ body{
 .task-actions {
     display: flex;
     align-items: center;
+}
+.relax{
+    padding-left: 35%;
+}
+.relax h1{
+    padding-left: 9%;
 }
 
 .completed-button,
@@ -291,6 +301,12 @@ button:hover {
     scrollbar-width: none;  /* Firefox */
     margin-top: 20px;
 }
+.addyourtask img{
+    height: 200px;
+}
+.addyourtask{
+    padding-left: 40%;
+}
 .taskform
 {
     background-color: blueviolet;
@@ -331,7 +347,7 @@ button:hover {
 }
 .pro-content 
 {
-    padding: 5px 0px 5px 15px;
+    padding: 0px 0px 0px 15px;
 }
 .pro-content h2
 {

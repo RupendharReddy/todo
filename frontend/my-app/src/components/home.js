@@ -1,13 +1,16 @@
 import "./components.css";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "../axios";
 import boy from "../icons/boy-avatar.png";
-import girl from "../icons/girl-avatar.png";
+import addyourtask from "../icons/relax.gif";
 
 export default function Home() {
   const [data, setData] = useState([]);
-  const [count, setCount] = useState();
+  const [count, setCount] = useState(0);
+  const navigation = useNavigate();
   const [provalue, setProvalue] = useState();
+  const [username, setUsername] = useState("");
   // const [add, setAdd] = useState({
   //   task: "",
   //   description: "",
@@ -19,23 +22,28 @@ export default function Home() {
 
   const onsubmit = async (e) => {
     e.preventDefault();
+    
     const task = e.target.task.value;
     const description = e.target.description.value;
-
-    axios.post("/addtask", {
-      
+    
+    axios
+    .post("/addtask", {
       taskname: task,
       description: description,
-    }).then((response) => {
-      const {is_success, data, error}=response.data
-      if(is_success){
-        console.log("data usestate", data); // Update the data state with the new task
-        fetchData();
-      }
-      else{
-        alert(error)
-      }
-    });
+      })
+      .then((response) => {
+        const { is_success, data, error } = response.data;
+        if (is_success) {
+          console.log("data usestate", data); // Update the data state with the new task
+          fetchData();
+          handlecount();
+        } else {
+          alert(error);
+        }
+      });
+      e.target.task.value = "";
+      e.target.description.value = "";
+      
   };
 
   const fetchData = async () => {
@@ -88,32 +96,43 @@ export default function Home() {
     } catch (error) {
       console.log("error in catch handleDelete");
     }
-    // const newData = [...data.slice(0, index), ...data.slice(index + 1)];
-    // setData(newData);
   };
-  const handlecount =  () => {
-    // const countresponse;
-    axios
+  const handlecount = async () => {
+    try {
+      
+      axios
       .get("/count", {
         params: {
           status: "completed",
         },
       })
       .then((response) => {
-        // const sum = data.length + response.data[0].count;
-        // setCount(response.data[0].count);
-        // setProvalue(response.data[0].count / sum);
-        // console.log(provalue, "pro val");
-        // console.log(count, "count data");
+        const { username, count } = response.data;
+        if (username) {
+          setUsername(username);
+        }
+        if (count) {
+          setCount(count);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
+    } catch (error) {
+      console.log(error);
+    }
   };
-  // const [flag,setFlag]=useState(true);
+
   useEffect(() => {
-    handlecount();
+    setProvalue((count / (data.length + count)) * 100);
+  }, [data, count]);
+
+  useEffect(() => {
+    if (!window.localStorage.getItem("mytoken")) {
+      navigation("/");
+    }
     fetchData();
+    handlecount();
   }, []);
 
   return (
@@ -153,6 +172,12 @@ export default function Home() {
             </form>
           </div>
         </div>
+        {!data.length && (
+          <div className="addyourtask">
+            <img src={addyourtask} alt="addyourtask" />
+            <h1>No Pending Tasks</h1>
+          </div>
+        )}{" "}
         <div className="taskdata">
           {data?.map((taskItem, index) => (
             <div className="task-item" key={index}>
@@ -186,7 +211,19 @@ export default function Home() {
         <div className="pro-content">
           <img src={boy} alt="boy png" />
           <br />
-          <br />
+          
+          <h2
+            style={{
+              margin:"5px auto",
+              display: "flex",
+              justifyContent: "space-around",
+              alignContent: "center",
+              textTransform: "capitalize",
+              paddingRight: "30px",
+            }}
+          >
+            <b>{username}</b>{" "}
+          </h2>
           <h2>
             Progress : <b>Good</b>{" "}
           </h2>
@@ -197,7 +234,7 @@ export default function Home() {
             Completed Tasks: <b>{count}</b>{" "}
           </h2>
           <div className="progress">
-            <progress value={provalue} />
+            <progress value={provalue} max={100} />
           </div>
         </div>
       </div>

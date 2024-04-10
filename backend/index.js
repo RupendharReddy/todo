@@ -26,6 +26,7 @@ db.connect((err) => {
 app.get("/login", (req, res) => {
   const email = req.query.email;
   const password = req.query.password;
+  console.log("----------------------------- /login endpoint  ------------------------------");
   db.query(
     `select * from users where email=? and password=?;`,
     [email, password],
@@ -77,12 +78,12 @@ app.post("/signin", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
-
+  console.log("-------------------------------- /signin endpoint  ------------------------------");
   db.query(`SELECT * FROM users WHERE email=?`, [email], (err, result) => {
     if (err) {
       return res.send("Error in fetching login data");
     } else if (result.length > 0) {
-      return res.send("User already exists");
+      return res.send("User already exists login to access your account. ");
     } else {
       // User doesn't exist, proceed with registration
       db.query(
@@ -91,7 +92,7 @@ app.post("/signin", (req, res) => {
         (err) => {
           if (err) {
             console.log("Error in insert query");
-            return res.send("Error in registration");
+            return res.send("Error in registration try after some time");
           } else {
             console.log("Successfully registered");
             return res.send("Successfully registered");
@@ -177,6 +178,7 @@ app.post("/addtask", middleware, (req, res) => {
 
 app.get("/completed",middleware, (req, res) => {
   try {
+    console.log("-------------------------------- /completed endpoint  ------------------------------");
     const userid = req.body.id;
     const taskname = req.query.taskname;
     console.log(req.query, userid, taskname);
@@ -200,54 +202,76 @@ app.get("/completed",middleware, (req, res) => {
 
 // "tfgvbhjkmdfeoidfh;wejfewoiro weiwejweo"+ endpoint("show") =>"tfgvbhjkmdfeoidfh;wejfewoiro weiwejweo"- "private key "= 1221
 
-app.get("/delete", (req, res) => {
-  const userid = req.query.userid;
+app.get("/delete",middleware, (req, res) => {
+  console.log("----------------------------- /delete endpoint  ------------------------------");
+  const userid = req.body.id;
   const taskname = req.query.taskname;
   const status = req.query.status;
   console.log(userid, taskname, req.query);
-  db.query(
-    `delete from taskdata where userid=? and taskname=? and status=?`,
-    [userid, taskname, status],
-    (err) => {
-      if (err) {
-        res.send("error in deleting query ");
-      } else {
-        console.log("deleted successfuly !");
-        res.send("deleted successfuly !");
+  if(userid)
+  {
+    db.query(
+      `delete from taskdata where userid=? and taskname=? and status=?`,
+      [userid, taskname, status],
+      (err) => {
+        if (err) {
+          res.status(500).send({is_success: false, data: {}, error: err});
+        } else {
+          console.log({is_success: true, data: {}, error: {}});
+          res.send("deleted successfuly !");
+        }
       }
-    }
-  );
+    );
+  }
+  else{
+    console.log("userid not found");
+    res.status(500).send({is_success: false, data: {}, error: "userid not found"});
+  }
 });
 
-app.get("/count", (req, res) => {
-    try {
-        
-        const userid = req.body.id;
-        const status = req.query.status;
-        db.query(
-            `select count(taskname) as count from taskdata where userid=? and status=?;`,
-            [userid, status],
-            (err, result) => {
-                if (err) {
-                    res.send("error in fetching count data");
-                } else if (result.length > 0) {
-                    console.log(result);
-                    res.send(result);
-                } else {
-                    console.log("No data found" + result);
-                    res.send("No data found" + result);
-                }
-            }
-        );
-    } catch (error) {
-        console.log("error in /count endpoint");
-        res.status(500).send({
-            is_success: false,
-            data: {},
-            error: "error in fetching data to show !" + error,
-        })
-    }
+app.get("/count", middleware, (req, res) => {
+  try {
+      console.log("-------------------------------- /count endpoint  ------------------------------");
+      const userid = req.body.id;
+      const status = req.query.status;
+      const response = {
+          count: 0,
+          username: ""
+      }
+      db.query(
+          `select count(taskname) as count from taskdata where userid=? and status=?;`,
+          [userid, status],
+          (err, result) => {
+              if (err) {
+                  res.send("error in fetching count data");
+              } else {
+                  if (result.length > 0) {
+                      console.log(result);
+                      response.count = result[0].count;
+                      db.query(`select username from users where userid=?;`, [userid], (err, result) => {
+                          if (err) {
+                              res.send("error in fetching count data");
+                          }
+                          if (result.length > 0) {
+                              response.username = result[0].username;
+                              res.status(200).send(response); // Corrected here
+                              console.log(response);
+                          }
+                      })
+                  }
+              }
+          }
+      );
+  } catch (error) {
+      console.log("error in /count endpoint");
+      res.status(500).send({
+          is_success: false,
+          data: {},
+          error: "error in fetching data to show !" + error,
+      })
+  }
 });
+
 
 const port = 8080;
 app.listen(port, (err) => {

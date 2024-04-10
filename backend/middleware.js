@@ -4,7 +4,7 @@ module.exports= function(req,res,next)
 {
     try { 
         let token=req.headers.authorization;
-        
+        // console.log(req.headers);
         jwt.verify(token.split(" ")[1],'secretkey',(err,decoded)=>{
             if(err)
             {
